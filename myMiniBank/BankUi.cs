@@ -78,6 +78,10 @@ namespace myMiniBank
 
             }
         }
+        public void ShowBalance()
+        {
+            Console.WriteLine($"{_account.Balance:F2} EUR");
+        }
 
 
     }

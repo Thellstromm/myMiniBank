@@ -28,6 +28,10 @@
                 {
                     ui.HandleWithdraw();
                 }
+                else if (userChoice == "3")
+                {
+                    ui.ShowBalance();
+                }
 
 
             }
