@@ -56,5 +56,29 @@ namespace myMiniBank
 
         }
 
+        public void HandleWithdraw()
+        {
+            Console.Write("Enter amount to Withdrwal: ");
+            string input = Console.ReadLine() ?? "";
+            decimal amount;
+
+            if(!decimal.TryParse(input, out amount) || amount <= 0)
+            {
+                Console.WriteLine("Invalid amount.");
+                return;
+            }
+            try
+            {
+                _account.Withdraw(amount);
+                Console.WriteLine($"Withdrewed {amount:F2} EUR. New balance: {_account.Balance:F2} EUR");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+
+            }
+        }
+
+
     }
 }

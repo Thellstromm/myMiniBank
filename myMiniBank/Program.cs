@@ -24,6 +24,10 @@
                 {
                     ui.HandleDeposir();
                 }
+                else if (userChoice == "2")
+                {
+                    ui.HandleWithdraw();
+                }
 
 
             }
