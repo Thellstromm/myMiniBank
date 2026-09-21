@@ -16,21 +16,26 @@
                 ui.ShowMenu();
                 string userChoice = ui.ReadChoice();
 
-                if (userChoice.ToLower() == "q")
+                switch (userChoice)
                 {
-                    break;
-                }
-                else if (userChoice == "1")
-                {
-                    ui.HandleDeposir();
-                }
-                else if (userChoice == "2")
-                {
-                    ui.HandleWithdraw();
-                }
-                else if (userChoice == "3")
-                {
-                    ui.ShowBalance();
+                    case "1":
+                        ui.HandleDeposir();
+                        break;
+                    case "2":
+                        ui.HandleWithdraw();
+                        break;
+                    case "3":
+                        ui.ShowBalance();
+                        break;
+                    case "4":
+                        ui.ShowTransactions();
+                        break;
+                    case "q":
+                    case "Q":
+                        return;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
                 }
 
 

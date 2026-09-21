@@ -4,6 +4,8 @@
     {
         public string AccountNumber { get; }
         public decimal Balance { get; private set; }
+        private readonly List<Transaction> _transactions = new();
+        public IReadOnlyList<Transaction> Transactions => _transactions.AsReadOnly();
         public BankAccount(string accountNumber)
         {
             AccountNumber = accountNumber;
@@ -16,6 +18,7 @@
             }
 
             Balance += amount;
+            _transactions.Add(new Transaction(amount, "Deposit"));
         }
         public void Withdraw(decimal amount)
         {
@@ -25,7 +28,10 @@
             }
 
             Balance -= amount;
+            _transactions.Add(new Transaction(-amount, "Withdrawl"));
         }
+
         
+
     }
 }
