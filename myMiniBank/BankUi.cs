@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace myMiniBank
 {
@@ -12,10 +13,20 @@ namespace myMiniBank
             _account = account;
 
         }
+
+        public void WriteSlowly(string text, int delayMs = 50)
+        {
+            foreach (char c in text)
+            {
+                Console.Write(c);
+                Thread.Sleep(delayMs);
+            }
+            Console.WriteLine();
+        }
         public void ShowMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("=== myMiniBank ===");
+            WriteSlowly("=== myMiniBank ===");
             Console.WriteLine("1. Deposit");
             Console.WriteLine("2. Withdraw");
             Console.WriteLine("3. Show balance");
@@ -46,7 +57,7 @@ namespace myMiniBank
             try
             {
                 _account.Deposit(amount);
-                Console.WriteLine($"Deposited {amount:F2} EUR. New balance: {_account.Balance:F2} EUR");
+                WriteSlowly($"Deposited {amount:F2} EUR. New balance: {_account.Balance:F2} EUR");
 
             }
             catch (ArgumentException ex)
@@ -70,7 +81,7 @@ namespace myMiniBank
             try
             {
                 _account.Withdraw(amount);
-                Console.WriteLine($"Withdrewed {amount:F2} EUR. New balance: {_account.Balance:F2} EUR");
+                WriteSlowly($"Withdrewed {amount:F2} EUR. New balance: {_account.Balance:F2} EUR");
             }
             catch (ArgumentException ex)
             {
@@ -80,7 +91,7 @@ namespace myMiniBank
         }
         public void ShowBalance()
         {
-            Console.WriteLine($"{_account.Balance:F2} EUR");
+            WriteSlowly($"{_account.Balance:F2} EUR");
         }
 
 

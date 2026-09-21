@@ -16,7 +16,7 @@
                 ui.ShowMenu();
                 string userChoice = ui.ReadChoice();
 
-                if (userChoice == "q" || userChoice == "Q")
+                if (userChoice.ToLower() == "q")
                 {
                     break;
                 }
