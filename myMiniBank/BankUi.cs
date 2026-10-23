@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
+using Microsoft.Data.SqlClient;
 
 namespace myMiniBank
 {
@@ -67,6 +68,11 @@ namespace myMiniBank
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Database error. Restart the program to check your balance and transaction history.");
+                Console.WriteLine($"Technical information: {ex.Message}");
+            }
 
         }
 
@@ -90,6 +96,11 @@ namespace myMiniBank
             {
                 Console.WriteLine($"Error: {ex.Message}");
 
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Database error. Restart the program to check your balance and transaction history.");
+                Console.WriteLine($"Technical information: {ex.Message}");
             }
         }
         public void ShowBalance()

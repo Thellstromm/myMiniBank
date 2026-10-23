@@ -6,29 +6,48 @@
         public decimal Balance { get; private set; }
         private readonly List<Transaction> _transactions = new();
         public IReadOnlyList<Transaction> Transactions => _transactions.AsReadOnly();
-        public BankAccount(string accountNumber)
+        private readonly TransactionRepository _repository;
+
+        public BankAccount(string accountNumber, TransactionRepository repository)
         {
             AccountNumber = accountNumber;
+            _repository = repository;
         }
         public void Deposit(decimal amount)
         {
             if (amount <= 0)
             {
-                throw new ArgumentException("Amount must be greater then zero");
+                throw new ArgumentException("Amount must be greater than zero");
             }
 
-            Balance += amount;
-            _transactions.Add(new Transaction(amount, "Deposit"));
+            decimal newBalance = Balance + amount;
+            Transaction transaction = new Transaction(amount, "Deposit");
+
+            _repository.Save(transaction, newBalance);
+
+            Balance = newBalance;
+            _transactions.Add(transaction);
         }
         public void Withdraw(decimal amount)
         {
             if (amount <= 0 || amount > Balance)
             {
-                throw new ArgumentException("Inavlid withdrawal");
+                throw new ArgumentException("Invalid withdrawal");
             }
 
-            Balance -= amount;
-            _transactions.Add(new Transaction(-amount, "Withdrawl"));
+            decimal newBalance = Balance - amount;
+            Transaction transaction = new Transaction(-amount, "Withdraw");
+
+            _repository.Save(transaction, newBalance);
+
+            Balance = newBalance;
+            _transactions.Add(transaction);
+        }
+
+        public void LoadTransaction(Transaction transaction)
+        {
+            _transactions.Add(transaction);
+            Balance += transaction.Amount;
         }
 
         
